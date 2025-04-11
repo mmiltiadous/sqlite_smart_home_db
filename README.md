@@ -15,7 +15,7 @@ The project consists of:
   - Weather data (OpenWeatherMap, JSON or on-demand)
 - Data analysis notebooks answering questions about patterns in energy use, occupancy, and device behavior.
 
-## Technologies Used
+## Used
 
 - Python 3.x
 - Pandas
@@ -33,7 +33,7 @@ The project consists of:
 - [Celine Li Q] - [smartthings.py]
 - [Timon Huijser] - [openweathermap.py, generate_weatherdata.py, report_weather.ipynb]
 
-## Getting Started
+## Important information
 
 Information about which data are inserted in the database can be found in the_actual_assignment.md. We decided to insert in our database only files containing in their name year '2023' since those were accessible from all the data folders(some data files have names with 2023 and also include some months of 2022).
 
