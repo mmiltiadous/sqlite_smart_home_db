@@ -1,0 +1,1 @@
+# sqlite_smart_home_db
