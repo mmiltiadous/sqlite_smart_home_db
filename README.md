@@ -41,37 +41,82 @@ To execute the commands mentioned in the reports, it is necessary to download th
 
 For creating the database,inserting data in it and querying it, we created a class name HomeMessagesDB which is in the home_messages_db.py script. Our database consists of 6 tables with the following structure:
 
-sources:{ SourceId integer PRIMARY KEY NOT NULL,
-Source NVARCHAR(50) NOT NULL}
-messages :{ MessageId NVARCHAR(50) PRIMARY KEY,
+
+### `sources`
+
+Stores metadata about data sources.
+
+```sql
+SourceId INTEGER PRIMARY KEY NOT NULL,
+Source NVARCHAR(50) NOT NULL
+```
+### `messages`
+
+Stores messages linked to specific sources.
+
+```sql
+MessageId NVARCHAR(50) PRIMARY KEY,
 Message NVARCHAR(50) NOT NULL,
-SourceId integer NOT NULL,
-FOREIGN KEY (SourceId) REFERENCES sources (SourceId)}
-smartthings :{ MessageId NVARCHAR(50) PRIMARY KEY,
-EpochId Integer NOT NULL,
-SourceId Integer NOT NULL,
+SourceId INTEGER NOT NULL,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
+
+---
+
+### `smartthings`
+
+Contains sensor readings from SmartThings devices.
+
+```sql
+MessageId NVARCHAR(50) PRIMARY KEY,
+EpochId INTEGER NOT NULL,
+SourceId INTEGER NOT NULL,
 capability NVARCHAR(50),
-value Integer,
+value INTEGER,
 unit NVARCHAR(50),
 deviceLabel NVARCHAR(50),
 location NVARCHAR(50),
 deviceId NVARCHAR(50),
-FOREIGN KEY (MessageId) REFERENCES messages (MessageId),
-FOREIGN KEY (SourceId) REFERENCES sources (SourceId)}
+FOREIGN KEY (MessageId) REFERENCES messages(MessageId),
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
-p1e:{ EpochId Integer primary_key NOT NULL,
-SourceId Integer NOT NULL,
-T1 Integer,
-T2 Integer,
-FOREIGN KEY (SourceId) REFERENCES sources (SourceId)}
+---
 
-p1g :{ EpochId Integer primary_key NOT NULL,
-SourceId Integer NOT NULL,
-TotalGas Integer,
-FOREIGN KEY (SourceId) REFERENCES sources (SourceId)}
+### `p1e`
 
-openweathermap :{ time INTEGER PRIMARY KEY,
-SourceId Integer NOT NULL,
+Stores electricity consumption data.
+
+```sql
+EpochId INTEGER PRIMARY KEY NOT NULL,
+SourceId INTEGER NOT NULL,
+T1 INTEGER,
+T2 INTEGER,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
+
+---
+
+### `p1g`
+
+Stores gas consumption measurements.
+
+```sql
+EpochId INTEGER PRIMARY KEY NOT NULL,
+SourceId INTEGER NOT NULL,
+TotalGas INTEGER,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
+
+---
+
+### `openweathermap`
+
+Contains external weather data from OpenWeatherMap.
+
+```sql
+time INTEGER PRIMARY KEY,
+SourceId INTEGER NOT NULL,
 temperature_2m REAL,
 relativehumidity_2m INTEGER,
 rain REAL,
@@ -79,7 +124,8 @@ snowfall REAL,
 windspeed_10m REAL,
 winddirection_10m INTEGER,
 soil_temperature_0_to_7cm REAL,
-FOREIGN KEY (SourceId) REFERENCES sources (SourceId)}
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
 The goal was to keep all the initialized information from the files provided and in addition have the message table in which messages are generated in the message column, regarding data from the files (e.g. for p1g if total gas is 3839.584 then the message generated will be ‘the total energy usage in low-cost hours is 3839.584’, the messageId will be the name of the file from where the information is taken and a number indicated the row(e.g. P1e-2022-12-01-2023-01-10.csv.gz0). In the sources table we have just four rows containing a number from 1 to 4 and the name of the source files (p1e, p1g and smartthings).
 
