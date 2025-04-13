@@ -141,29 +141,45 @@ Run one of the following commands:
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
 ```
 - **Insert all matching files:**
+```bash
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
+```
 - **Display help message:**
+```bash
 python p1e.py –help
+```
 
 ### P1g:
 Run one of the following commands:
 
 - **Insert a specific file:**
+```bash
 python p1g.py -d sqlite:///myhome.db P1g-2022-12-01-2023-01-10.csv.gz
+```
 - **Insert all matching files:**
+```bash
 python p1g.py -d sqlite:///myhome.db P1g-*.csv.gz
+```
 - **Display help message:**
+```bash
 python p1g.py --help
+```
 
 ### Smartthings:
 Run one of the following commands:
 
 - **Insert a specific file:**
+```bash
 python smartthings.py -d sqlite:///myhome.db smartthingsLog.2023-01-03_09_01_26.tsv
+```
 - **Insert all matching files:**
+```bash
 python smartthings.py -d sqlite:///myhome.db smartthingsLog.*.tsv
+```
 - **Display help message:**
+```bash
 python smartthings.py –help
+```
 
 
 ## Openweathermap:
@@ -173,13 +189,21 @@ The OpenWeatherMap data is handled differently. We chose to exclude its messages
 A method called make_weatherdata() is provided in home_messages_db.py to fetch and format weather data from the official OpenWeatherMap website. The tool generate_weatherdata.py uses this method to generate a CSV file (weatherdata.csv), which is already included in this repository. This file name is used in the source table under the column 'name'. To insert the weatherdata.csv in the database's table named 'openweathermap' using both the openwheathermap.py tool and the generate_weatherdata.py tool via command prompt the following commands should be used:
 
 - **Generate the CSV file:**
+```bash
 python generate_weatherdata.py -d sqlite:///myhome.db
+```
 - **Insert the generated file into the database:**
+```bash
 python openweathermap.py -d sqlite:///myhome.db weatherdata.csv
+```
 - **Help for generating the CSV:**
+```bash
 python generate_weatherdata.py --help
+```
 - **Help for inserting the CSV:**
+```bash
 python openweathermap.py --help
+```
 
 ## Notes:
 
