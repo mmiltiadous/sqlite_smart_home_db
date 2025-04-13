@@ -92,46 +92,55 @@ Run one of the following commands:
 
 - **Insert a specific file:**
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
-#### Add all files: 
+- **- **Insert all matching files:**
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
-#### For help: 
+- **Display help message:**
 python p1e.py –help
 
-P1g:
-Type in command for:
+### P1g:
+Run one of the following commands:
 
--Inputting specific file: python p1g.py -d sqlite:///myhome.db P1g-2022-12-01-2023-01-10.csv.gz
--Input all files: python p1g.py -d sqlite:///myhome.db P1g-*.csv.gz
--For help: python p1g.py --help
+- **Insert a specific file:**
+python p1g.py -d sqlite:///myhome.db P1g-2022-12-01-2023-01-10.csv.gz
+- **- **Insert all matching files:**
+python p1g.py -d sqlite:///myhome.db P1g-*.csv.gz
+- **Display help message:**
+python p1g.py --help
 
-Smartthings:
-Type in command for:
+### Smartthings:
+Run one of the following commands:
 
--Inputing specific file: python smartthings.py -d sqlite:///myhome.db smartthingsLog.2023-01-03_09_01_26.tsv
--Input all files: python smartthings.py -d sqlite:///myhome.db smartthingsLog.*.tsv
--For help: python smartthings.py –help
+- **Insert a specific file:**
+python smartthings.py -d sqlite:///myhome.db smartthingsLog.2023-01-03_09_01_26.tsv
+- **- **Insert all matching files:**
+python smartthings.py -d sqlite:///myhome.db smartthingsLog.*.tsv
+- **Display help message:**
+python smartthings.py –help
 
-‘’’
 
-After executing the insertion commands, the tools print the 5 first rows from their respective
-Table and the first 5 rows of the messages table, sorted by their primary keys.
+## Openweathermap:
+
+The OpenWeatherMap data is handled differently. We chose to exclude its messages from the messages table to keep it clean. Instead, weather data is stored in a separate table called openweathermap.
+
+A method called make_weatherdata() is provided in home_messages_db.py to fetch and format weather data from the official OpenWeatherMap website. The tool generate_weatherdata.py uses this method to generate a CSV file (weatherdata.csv), which is already included in this repository. This file name is used in the source table under the column 'name'. To insert the weatherdata.csv in the database's table named 'openweathermap' using both the openwheathermap.py tool and the generate_weatherdata.py tool via command prompt the following commands should be used:
+
+- **Generate the CSV file:**
+python generate_weatherdata.py -d sqlite:///myhome.db
+- **Insert the generated file into the database:**
+python openweathermap.py -d sqlite:///myhome.db weatherdata.csv
+- **Help for generating the CSV:**
+python generate_weatherdata.py --help
+- **Help for inserting the CSV:**
+python openweathermap.py --help
+
+## Notes:
+
+After executing the insertion commands, the tools print the 5 first rows from their respective Table and the first 5 rows of the messages table, sorted by their primary keys.
 The tools also check if any of the files that the user want to insert is already in the database and print appropriate message. Duplicates where also considered and deleted from all the tables so in the database there are no duplicates.
 
-For the openweathermapdata a different procedure was followed. We decided to keep the messages table clean from openwheatherdata, so we did not add messages for the measured variables of the weatherdata. A method is added in home_messages_db.py, called make_weatherdata(), which makes the weatherdata based on the website link. With the tool generate_weatherdata.py, a file can be created called weatherdata.csv. This file is also added to github repository. This file name is used in the source table under the column 'name'. To insert the weatherdata.csv in the database's table named 'openweathermap' using both the openwheathermap.py tool and the generate_weatherdata.py tool via command prompt the following specification should be used:
 
-‘’’
-
-Openweathermap:
-Type in command for:
-
--Generate the csv file: python generate_weatherdata.py -d sqlite:///myhome.db
--Input the csv file: python openweathermap.py -d sqlite:///myhome.db weatherdata.csv
--For help with the Generation: python generate_weatherdata.py -h
--For help with the Input: python openweathermap.py -h
-
-‘’’
-
-Finally, the following reports are provided as notebooks containing at least one question about data, one visualization and one table:
+## Data reports: 
+The following reports are provided as notebooks containing at least one question about data, one visualization and one table as requested by the assignment:
 
 -report_gas_and_electricity_usage_weekly.ipynb
 -report_energy_gas_daily_usage.ipynb
