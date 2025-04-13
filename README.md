@@ -92,7 +92,7 @@ Run one of the following commands:
 
 - **Insert a specific file:**
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
-- **- **Insert all matching files:**
+- **Insert all matching files:**
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
 - **Display help message:**
 python p1e.py –help
@@ -102,7 +102,7 @@ Run one of the following commands:
 
 - **Insert a specific file:**
 python p1g.py -d sqlite:///myhome.db P1g-2022-12-01-2023-01-10.csv.gz
-- **- **Insert all matching files:**
+- **Insert all matching files:**
 python p1g.py -d sqlite:///myhome.db P1g-*.csv.gz
 - **Display help message:**
 python p1g.py --help
@@ -112,7 +112,7 @@ Run one of the following commands:
 
 - **Insert a specific file:**
 python smartthings.py -d sqlite:///myhome.db smartthingsLog.2023-01-03_09_01_26.tsv
-- **- **Insert all matching files:**
+- **Insert all matching files:**
 python smartthings.py -d sqlite:///myhome.db smartthingsLog.*.tsv
 - **Display help message:**
 python smartthings.py –help
