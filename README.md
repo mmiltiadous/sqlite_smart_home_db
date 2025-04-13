@@ -139,8 +139,8 @@ Run one of the following commands:
 - **Insert a specific file:**
 ```bash
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
+```
 - **Insert all matching files:**
-```bash
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
 - **Display help message:**
 python p1e.py –help
