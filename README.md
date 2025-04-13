@@ -1,6 +1,6 @@
 # Smart Home Energy Data Project
 
-This repository contains the completed group assignment (the_actual_assignment.md) for the 'Essentials for Data science' course at Leiden University. The goal of the project was to design a system to process and analyze raw real-world data from various smart home devices (build database from scratch).
+This repository contains the final group project for the Essentials for Data Science course at Leiden University. The objective was to design and implement a system that processes and analyzes real-world data from various smart home devices by building a structured, queryable database from scratch.
 
 We developed a set of command-line tools and a database interface to clean, integrate, and store device messages related to temperature, humidity, motion, energy and gas usage, and weather. The data covers over a year of activity collected from one household.
 
@@ -137,8 +137,10 @@ For each of the source files categories we created a tool (p1e.py, p1g.py, smart
 Run one of the following commands:
 
 - **Insert a specific file:**
+```bash
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
 - **Insert all matching files:**
+```bash
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
 - **Display help message:**
 python p1e.py –help
@@ -182,7 +184,7 @@ python openweathermap.py --help
 ## Notes:
 
 After executing the insertion commands, the tools print the 5 first rows from their respective Table and the first 5 rows of the messages table, sorted by their primary keys.
-The tools also check if any of the files that the user want to insert is already in the database and print appropriate message. Duplicates where also considered and deleted from all the tables so in the database there are no duplicates.
+The tools also check if any of the files that the user want to insert is already in the database and print appropriate message. Duplicates were also considered and deleted from all the tables so in the database there are no duplicates.
 
 
 ## Data reports: 
