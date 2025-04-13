@@ -142,8 +142,8 @@ The tools also check if any of the files that the user want to insert is already
 ## Data reports: 
 The following reports are provided as notebooks containing at least one question about data, one visualization and one table as requested by the assignment:
 
--report_gas_and_electricity_usage_weekly.ipynb
--report_energy_gas_daily_usage.ipynb
--report_weather.ipynb (at the end, there are some notes on usage of ChatGPT)
--report_light_usage.ipynb
+- **report_gas_and_electricity_usage_weekly.ipynb**
+- **report_energy_gas_daily_usage.ipynb**
+- **report_weather.ipynb (at the end, there are some notes on usage of ChatGPT)**
+- **report_light_usage.ipynb**
 
