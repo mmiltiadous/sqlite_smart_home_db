@@ -88,9 +88,9 @@ For each of the source files categories we created a tool (p1e.py, p1g.py, smart
 ## Usage
 
 ### P1e:
-Type in command for:
+Run one of the following commands:
 
-#### Add specific file: 
+- **Insert a specific file:**
 python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
 #### Add all files: 
 python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
