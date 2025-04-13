@@ -146,107 +146,101 @@ The following reports are provided as notebooks containing at least one question
 - **report_energy_gas_daily_usage.ipynb**
 - **report_weather.ipynb (at the end, there are some notes on usage of ChatGPT)**
 - **report_light_usage.ipynb**
-- 
 
-# Database Schema
 
-Our system uses a relational database with 6 tables. Below is the schema structure with relationships.
+### 🗂️ `sources`
 
-## Tables
+Stores metadata about data sources.
 
-### `sources`
-Stores information about data sources.
+```sql
+SourceId INTEGER PRIMARY KEY NOT NULL,
+Source NVARCHAR(50) NOT NULL
+```
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| SourceId | integer | PRIMARY KEY, NOT NULL |
-| Source | NVARCHAR(50) | NOT NULL |
+---
 
-### `messages`
-Contains message data linked to sources.
+### 💬 `messages`
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| MessageId | NVARCHAR(50) | PRIMARY KEY |
-| Message | NVARCHAR(50) | NOT NULL |
-| SourceId | integer | NOT NULL, FOREIGN KEY |
+Stores messages linked to specific sources.
 
-**Foreign Keys:**
-- `SourceId` references `sources(SourceId)`
+```sql
+MessageId NVARCHAR(50) PRIMARY KEY,
+Message NVARCHAR(50) NOT NULL,
+SourceId INTEGER NOT NULL,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
-### `smartthings`
-SmartThings device data.
+---
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| MessageId | NVARCHAR(50) | PRIMARY KEY |
-| EpochId | Integer | NOT NULL |
-| SourceId | Integer | NOT NULL |
-| capability | NVARCHAR(50) | |
-| value | Integer | |
-| unit | NVARCHAR(50) | |
-| deviceLabel | NVARCHAR(50) | |
-| location | NVARCHAR(50) | |
-| deviceId | NVARCHAR(50) | |
+### 🏠 `smartthings`
 
-**Foreign Keys:**
-- `MessageId` references `messages(MessageId)`
-- `SourceId` references `sources(SourceId)`
+Contains sensor readings from SmartThings devices.
 
-### `p1e`
-P1E energy meter readings.
+```sql
+MessageId NVARCHAR(50) PRIMARY KEY,
+EpochId INTEGER NOT NULL,
+SourceId INTEGER NOT NULL,
+capability NVARCHAR(50),
+value INTEGER,
+unit NVARCHAR(50),
+deviceLabel NVARCHAR(50),
+location NVARCHAR(50),
+deviceId NVARCHAR(50),
+FOREIGN KEY (MessageId) REFERENCES messages(MessageId),
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| EpochId | Integer | PRIMARY KEY, NOT NULL |
-| SourceId | Integer | NOT NULL |
-| T1 | Integer | |
-| T2 | Integer | |
+---
 
-**Foreign Keys:**
-- `SourceId` references `sources(SourceId)`
+### ⚡ `p1e`
 
-### `p1g`
-P1G gas meter readings.
+Stores electricity consumption data.
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| EpochId | Integer | PRIMARY KEY, NOT NULL |
-| SourceId | Integer | NOT NULL |
-| TotalGas | Integer | |
+```sql
+EpochId INTEGER PRIMARY KEY NOT NULL,
+SourceId INTEGER NOT NULL,
+T1 INTEGER,
+T2 INTEGER,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
-**Foreign Keys:**
-- `SourceId` references `sources(SourceId)`
+---
 
-### `openweathermap`
-Weather data from OpenWeatherMap.
+### 🔥 `p1g`
 
-| Column | Type | Constraints |
-|--------|------|------------|
-| time | INTEGER | PRIMARY KEY |
-| SourceId | Integer | NOT NULL |
-| temperature_2m | REAL | |
-| relativehumidity_2m | INTEGER | |
-| rain | REAL | |
-| snowfall | REAL | |
-| windspeed_10m | REAL | |
-| winddirection_10m | INTEGER | |
-| soil_temperature_0_to_7cm | REAL | |
+Stores gas consumption measurements.
 
-**Foreign Keys:**
-- `SourceId` references `sources(SourceId)`
+```sql
+EpochId INTEGER PRIMARY KEY NOT NULL,
+SourceId INTEGER NOT NULL,
+TotalGas INTEGER,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
 
-## Entity Relationship Diagram
-sources
-↑
-|
-+----- messages -----> smartthings
-|
-+----- p1e
-|
-+----- p1g
-|
-+----- openweathermap
+---
 
-Each table connects back to the central `sources` table, with `smartthings` also linking to `messages`.
+### 🌦️ `openweathermap`
+
+Contains external weather data from OpenWeatherMap.
+
+```sql
+time INTEGER PRIMARY KEY,
+SourceId INTEGER NOT NULL,
+temperature_2m REAL,
+relativehumidity_2m INTEGER,
+rain REAL,
+snowfall REAL,
+windspeed_10m REAL,
+winddirection_10m INTEGER,
+soil_temperature_0_to_7cm REAL,
+FOREIGN KEY (SourceId) REFERENCES sources(SourceId)
+```
+
+---
+
+### 📌 Notes
+
+- All tables use foreign key constraints to maintain referential integrity with the `sources` table (and with `messages` where applicable).
+- This schema ensures clean and consistent integration of diverse data sources.
+- Data types and constraints are chosen for performance and reliability.
 
