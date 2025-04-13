@@ -85,14 +85,17 @@ The goal was to keep all the initialized information from the files provided and
 
 For each of the source files categories we created a tool (p1e.py, p1g.py, smartthings.py). The tools import HomeMessagesDB class and after making the necessary manipulation of the data, they use the class to insert the data into the database. For all the data insertions, the messages table is also updated with the relevant rows according to the data. All the tools can be executed from the command prompt as in the following specifications. ( Informative messages are also generated for wrong inputs by the user ):
 
-‘’’
+## Usage
 
-P1e:
+### P1e:
 Type in command for:
 
--Inputting specific file: python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
--Input all files: python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
--For help: python p1e.py –help
+#### Add specific file: 
+python p1e.py -d sqlite:///myhome.db P1e-2022-12-01-2023-01-10.csv.gz
+#### Add all files: 
+python p1e.py -d sqlite:///myhome.db P1e-*.csv.gz
+#### For help: 
+python p1e.py –help
 
 P1g:
 Type in command for:
